@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "./App.css";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [display, setdisplay] = useState([]);
@@ -14,6 +15,8 @@ function App() {
       const repoName = response.data.map((item) => item.name);
       const repoDescription = response.data.map((item) => item.description);
       const githubLink = response.data.map((item) => item.html_url);
+      const updated = response.data.map((item) => item.updated_at);
+      console.log(updated);
 
       const displayArray = concatArray(repoName, repoDescription, githubLink);
 
@@ -30,14 +33,31 @@ function App() {
       <div className="flex">
         {display.map((item, index) => {
           if (item === null) {
-            return <div className="description">{"no description"}</div>;
+            return (
+              <div key={uuidv4()} className="description">
+                {"no description"}
+              </div>
+            );
           }
           if (index % 3 === 0) {
-            return <div className="title">{item}</div>;
+            return (
+              <div key={uuidv4()} className="title">
+                {item}
+              </div>
+            );
           }
           if ((index + 1) % 3 === 0) {
-            return <a href={item}>{"Github Link"}</a>;
-          } else return <div className="description">{item}</div>;
+            return (
+              <a key={uuidv4()} href={item}>
+                {"Github Link"}
+              </a>
+            );
+          } else
+            return (
+              <div key={uuidv4()} className="description">
+                {item}
+              </div>
+            );
         })}
       </div>
     </>
