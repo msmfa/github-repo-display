@@ -1,4 +1,6 @@
-.flex {
-  display: flex;
-  flex-direction: row;
+.description {
+  color: rgb(87, 87, 87);
+}
+.title {
+  color: rgb(15, 147, 165);
 }
