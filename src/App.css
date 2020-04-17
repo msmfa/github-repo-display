@@ -1,6 +1,17 @@
+* {
+  padding: 0.1em;
+}
+
 .description {
   color: rgb(87, 87, 87);
 }
 .title {
-  color: rgb(15, 147, 165);
+  color: rgb(6, 67, 158);
+  font-weight: bold;
+  margin: 1em 0 0.2em 0;
+}
+
+a {
+  text-decoration: none;
+  color: grey;
 }
