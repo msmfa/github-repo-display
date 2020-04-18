@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
+import { timeSince } from "./timeSince";
 
 function App() {
   const [display, setdisplay] = useState([]);
@@ -13,6 +14,7 @@ function App() {
       );
 
       const data = response.data.map((item) => item);
+      console.log(data.map((item) => item.updated_at));
       setdisplay([...data]);
     }
 
@@ -23,21 +25,21 @@ function App() {
 
   return (
     <>
-      <div classname="repo-container">
+      <div className="repo-container">
         {display.map((item) => (
-          <div key={uuidv4()}>
-            <li className="repo-name" key={uuidv4()}>
+          <div className="repo" key={uuidv4()}>
+            <li className="repo-title" key={uuidv4()}>
               {item.name}
             </li>
             <li className="repo-description" key={uuidv4()}>
               {item.description}
             </li>
-            <li className="repo-github" key={uuidv4()}>
+            <li className="github-link" key={uuidv4()}>
               <a key={uuidv4()} href={item.html_url}>
                 Github Link
               </a>
             </li>
-            <li className="repo-website" key={uuidv4()}>
+            <li className="website-link" key={uuidv4()}>
               <a key={uuidv4()} href={item.homepage}>
                 Live Website
               </a>
@@ -48,5 +50,7 @@ function App() {
     </>
   );
 }
+
+console.log(timeSince(new Date(["2019-04-17"])));
 
 export default App;

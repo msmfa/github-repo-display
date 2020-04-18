@@ -1,17 +1,38 @@
 * {
-  padding: 0.1em;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter";
 }
 
-.description {
-  color: rgb(87, 87, 87);
+li {
+  list-style-type: none;
 }
-.title {
-  color: rgb(6, 67, 158);
-  font-weight: bold;
-  margin: 1em 0 0.2em 0;
-}
-
 a {
   text-decoration: none;
-  color: grey;
+}
+
+.repo-container {
+  margin: 0 1em;
+}
+
+.repo {
+  margin: 1em 0;
+}
+
+.repo-title {
+  font-size: 1.2em;
+}
+.repo-description {
+  font-size: 0.9em;
+  color: rgb(73, 73, 73);
+}
+
+.github-link a {
+  color: blue;
+  font-size: 0.9em;
+}
+
+.website-link a {
+  font-size: 0.9em;
 }
