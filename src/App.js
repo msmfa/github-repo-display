@@ -14,8 +14,10 @@ function App() {
       );
 
       const data = response.data.map((item) => item);
-      console.log(data.map((item) => item.updated_at));
-      setdisplay([...data]);
+      const repoCreated = data.sort((a, b) => b.id - a.id);
+
+      // the ids are allocated based on creation of repo date
+      setdisplay([...repoCreated]);
     }
 
     getData();
@@ -54,5 +56,16 @@ function App() {
 
 console.log(timeSince(new Date(["2019-04-17"])));
 console.log(timeSince(new Date(["2020-03-17T10:47:29Z"])));
+
+function hoursAgo(date) {
+  let seconds = Math.floor((new Date() - date) / 1000);
+  let interval = Math.floor(seconds / 31536000);
+
+  interval = Math.floor(seconds / 3600);
+
+  return interval + " minutes ago";
+}
+
+console.log(hoursAgo(new Date(["2019-04-17"])));
 
 export default App;
