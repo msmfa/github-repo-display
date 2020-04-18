@@ -5,7 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 import { timeSince } from "./timeSince";
 
 function App() {
-  const [display, setdisplay] = useState([]);
+  const [display, setDisplay] = useState([]);
+  const [shortRepos, setshortRepos] = useState([]);
+  const [allRepos, setallRepos] = useState([]);
+  const numOfDisplayRepos = 6;
 
   useEffect(() => {
     async function getData() {
@@ -17,15 +20,23 @@ function App() {
       const sortByUpdate = [...data].sort(
         (a, b) => +new Date(b.updated_at) - +new Date(a.updated_at)
       );
-      // the ids are allocated based on creation of repo date
-      setdisplay([...sortByUpdate]);
+      const repos = [...sortByUpdate].slice(0, `${numOfDisplayRepos}`);
+      const allRepos = [...sortByUpdate];
+
+      setDisplay([...repos]);
+      setshortRepos([...repos]);
+      setallRepos([...allRepos]);
     }
 
     getData();
   }, []);
-
   // Wrapped in useEffect to stop it re rendering
 
+  const handleExpand = () => {
+    if (display.length === numOfDisplayRepos) {
+      setDisplay([...allRepos]);
+    } else setDisplay([...shortRepos]);
+  };
   return (
     <>
       <div className="repo-container">
@@ -38,32 +49,25 @@ function App() {
               {item.description}
             </li>
             <li className="github-link" key={uuidv4()}>
-              <a key={uuidv4()} href={item.html_url}>
+              <a
+                key={uuidv4()}
+                href={item.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Github Link
               </a>
             </li>
-            <li className="website-link" key={uuidv4()}>
-              <a key={uuidv4()} href={item.homepage}>
-                Live Website
-              </a>
-            </li>
+
             <li key={uuidv4()}>{timeSince(new Date(item.updated_at))}</li>
           </div>
         ))}
+        <button onClick={handleExpand} type="submit">
+          Expand{" "}
+        </button>
       </div>
     </>
   );
 }
-
-function hoursAgo(date) {
-  let seconds = Math.floor((new Date() - date) / 1000);
-  let interval = Math.floor(seconds / 31536000);
-
-  interval = Math.floor(seconds / 3600);
-
-  return interval + " minutes ago";
-}
-
-console.log(hoursAgo(new Date(["2019-04-17"])));
 
 export default App;
