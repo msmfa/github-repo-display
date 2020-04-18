@@ -12,15 +12,8 @@ function App() {
         `https://api.github.com/users/msmfa/repos`
       );
 
-      const repoName = response.data.map((item) => item.name);
-      const repoDescription = response.data.map((item) => item.description);
-      const githubLink = response.data.map((item) => item.html_url);
-      const updated = response.data.map((item) => item.updated_at);
-      console.log(updated);
-
-      const displayArray = concatArray(repoName, repoDescription, githubLink);
-
-      setdisplay([...displayArray]);
+      const data = response.data.map((item) => item);
+      setdisplay([...data]);
     }
 
     getData();
@@ -30,48 +23,30 @@ function App() {
 
   return (
     <>
-      <div className="flex">
-        {display.map((item, index) => {
-          if (item === null) {
-            return (
-              <div key={uuidv4()} className="description">
-                {"no description"}
-              </div>
-            );
-          }
-          if (index % 3 === 0) {
-            return (
-              <div key={uuidv4()} className="title">
-                {item}
-              </div>
-            );
-          }
-          if ((index + 1) % 3 === 0) {
-            return (
-              <a key={uuidv4()} href={item}>
-                {"Github Link"}
+      <div classname="repo-container">
+        {display.map((item) => (
+          <div key={uuidv4()}>
+            <li className="repo-name" key={uuidv4()}>
+              {item.name}
+            </li>
+            <li className="repo-description" key={uuidv4()}>
+              {item.description}
+            </li>
+            <li className="repo-github" key={uuidv4()}>
+              <a key={uuidv4()} href={item.html_url}>
+                Github Link
               </a>
-            );
-          } else
-            return (
-              <div key={uuidv4()} className="description">
-                {item}
-              </div>
-            );
-        })}
+            </li>
+            <li className="repo-website" key={uuidv4()}>
+              <a key={uuidv4()} href={item.homepage}>
+                Live Website
+              </a>
+            </li>
+          </div>
+        ))}
       </div>
     </>
   );
-
-  function concatArray(repoName, repoDescription, githubLink) {
-    const displayArray = [];
-    repoName.forEach((item, index) => {
-      displayArray.push(item);
-      displayArray.push(repoDescription[index]);
-      displayArray.push(githubLink[index]);
-    });
-    return displayArray;
-  }
 }
 
 export default App;
