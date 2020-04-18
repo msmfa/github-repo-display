@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "./App.css";
-import { v4 as uuidv4 } from "uuid";
-import { timeSince } from "./timeSince";
+import { ExpandButton } from "./components/ExpandButton";
+import { DisplayRepos } from "./components/DisplayRepos";
 
 function App() {
   const [display, setDisplay] = useState([]);
@@ -30,7 +30,6 @@ function App() {
 
     getData();
   }, []);
-  // Wrapped in useEffect to stop it re rendering
 
   const handleExpand = () => {
     if (display.length === numOfDisplayRepos) {
@@ -41,37 +40,10 @@ function App() {
     <>
       <div className="repo-container">
         <DisplayRepos display={display} />
-        <button onClick={handleExpand} type="submit">
-          Expand{" "}
-        </button>
+        <ExpandButton handleExpand={handleExpand} />
       </div>
     </>
   );
 }
 
 export default App;
-
-function DisplayRepos(props) {
-  return props.display.map((item) => (
-    <div className="repo" key={uuidv4()}>
-      <li className="repo-title" key={uuidv4()}>
-        {item.name}
-      </li>
-      <li className="repo-description" key={uuidv4()}>
-        {item.description}
-      </li>
-      <li className="github-link" key={uuidv4()}>
-        <a
-          key={uuidv4()}
-          href={item.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Github Link
-        </a>
-      </li>
-
-      <li key={uuidv4()}>{timeSince(new Date(item.updated_at))}</li>
-    </div>
-  ));
-}
