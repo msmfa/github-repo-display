@@ -44,6 +44,7 @@ function App() {
                 Live Website
               </a>
             </li>
+            <li>{timeSince(new Date(item.updated_at))}</li>
           </div>
         ))}
       </div>
@@ -52,5 +53,6 @@ function App() {
 }
 
 console.log(timeSince(new Date(["2019-04-17"])));
+console.log(timeSince(new Date(["2020-03-17T10:47:29Z"])));
 
 export default App;
