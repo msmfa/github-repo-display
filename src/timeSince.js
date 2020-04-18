@@ -20,7 +20,7 @@ export function timeSince(date) {
   if (interval > 1) {
     return interval + " minutes ago";
   }
-  return Math.floor(seconds) + " seconds";
+  return Math.floor(seconds) + " seconds ago";
 }
 
 // Could have used Moment.js but didn't want to have a depedantcy

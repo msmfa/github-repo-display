@@ -44,7 +44,7 @@ function App() {
                 Live Website
               </a>
             </li>
-            <li>{timeSince(new Date(item.updated_at))}</li>
+            <li key={uuidv4()}>{timeSince(new Date(item.updated_at))}</li>
           </div>
         ))}
       </div>
